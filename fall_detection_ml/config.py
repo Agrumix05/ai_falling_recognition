@@ -30,7 +30,11 @@ CATBOOST_ITERATIONS = None  # None = default CatBoost (1000)
 CATBOOST_LOG_EVERY = 100  # stampa ogni N iterazioni; 0 = nessun log
 SVM_PARAMS = dict(probability=True)  # resto: default scikit-learn
 RF_PARAMS = dict(random_state=SEED)
-CATBOOST_PARAMS = dict(random_seed=SEED, allow_writing_files=False)
+
+# CATBOOST_PARAMS = dict(random_seed=SEED, allow_writing_files=False)
+CATBOOST_PARAMS = dict(random_seed=SEED, allow_writing_files=False,
+                       task_type="GPU", devices="0")
+
 
 # Lunghezza di padding dei dati grezzi (valori dei notebook originali).
 # Se la lunghezza reale massima la supera, viene usata quella reale. None = sempre il massimo reale.
@@ -42,6 +46,7 @@ UNIMIB_CLASSES = [
     "FallingRight", "FallingLeft", "Syncope", "FallingBackSC", "FallingWithPS",
     "HittingObstacle",
 ]
+
 UNIZGFALL_CLASSES = ["MW", "MR", "MJ", "WD", "WU", "FF", "FS", "FB", "LD", "OT"]
 
 DATASETS = {
