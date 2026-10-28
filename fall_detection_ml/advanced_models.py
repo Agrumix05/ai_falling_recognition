@@ -5,7 +5,6 @@ import copy
 import importlib.metadata
 import time
 import warnings
-from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -21,13 +20,16 @@ import config as cfg
 import utils
 
 
+# Rappresentazioni supportate per modello (vedi README: matrice modello x rappresentazione).
+# XGBoost e' tabellare: features (94) oppure raw come vettore piatto (n, 3*T), come RF/SVM/CatBoost.
+# Rocket e CNN richiedono una serie temporale multivariata (n, 3, T): le 94 feature non hanno asse temporale.
 MODEL_SPECS = {
-    "xgboost": {"input": "features", "datasets": ("UniZgFall", "UniMiB")},
-    "minirocket": {"input": "raw", "datasets": ("UniZgFall", "UniMiB")},
-    "multirocket": {"input": "raw", "datasets": ("UniZgFall", "UniMiB")},
-    "cnn1d": {"input": "raw", "datasets": ("UniZgFall", "UniMiB")},
-    "inceptiontime": {"input": "raw", "datasets": ("UniZgFall", "UniMiB")},
-    "resnet1d": {"input": "raw", "datasets": ("UniZgFall", "UniMiB")},
+    "xgboost": {"inputs": ("features", "raw")},
+    "minirocket": {"inputs": ("raw",)},
+    "multirocket": {"inputs": ("raw",)},
+    "cnn1d": {"inputs": ("raw",)},
+    "inceptiontime": {"inputs": ("raw",)},
+    "resnet1d": {"inputs": ("raw",)},
 }
 TORCH_MODELS = {"cnn1d", "inceptiontime", "resnet1d"}
 ROCKET_MODELS = {"minirocket", "multirocket"}
@@ -46,29 +48,19 @@ def print_versions():
             print(f"{package}: non installato")
 
 
-def _output_dir():
-    root = Path(cfg.ADVANCED_RESULTS_DIR)
-    if cfg.QUICK_TEST:
-        root = root / "quick"
-    root.mkdir(parents=True, exist_ok=True)
-    return root
-
-
-def _prefix(model, dataset):
-    return f"{model}_{dataset}_{cfg.CV_MODE}"
-
-
-def _load_data(dataset, kind):
-    """Carica via utils e ricostruisce i raw come (n_casi, 3 assi, tempo)."""
+def _load_data(model, dataset, kind):
+    """Carica via utils. Raw: (n_casi, 3 assi, tempo) per i modelli sequenziali, vettore piatto per XGBoost."""
     X, y, record_id, subject_id, feature_names = utils.load_experiment_data(dataset, kind)
     lengths = None
-    if kind == "raw":
+    if kind == "raw" and model != "xgboost":
         X = X.reshape(len(X), -1, 3).transpose(0, 2, 1)
         meta = pd.read_csv(cfg.DATA_DIR / f"raw_{dataset}_meta.csv")
         lookup = meta.set_index("record_id")["n_samples"]
         lengths = lookup.loc[record_id].to_numpy(dtype=int)
         if X.shape[1] != 3 or np.any(lengths <= 0) or np.any(lengths > X.shape[2]):
             raise ValueError(f"Forma o lunghezze raw non valide per {dataset}: {X.shape}")
+        if model in ROCKET_MODELS:
+            X = X[:, :, :int(lengths.max())]  # il padding in eccesso diluisce le feature Rocket
     return X, y, record_id, subject_id, feature_names, lengths
 
 
@@ -101,7 +93,6 @@ def _xgboost_estimator(n_classes):
 
 def _rocket_transformer(model):
     try:
-        from sktime.transformations.compose import FitInTransform
         from sktime.transformations.panel.rocket import (
             MiniRocketMultivariate,
             MultiRocketMultivariate,
@@ -112,10 +103,8 @@ def _rocket_transformer(model):
         cfg.MINIROCKET_NUM_KERNELS if model == "minirocket" else cfg.MULTIROCKET_NUM_KERNELS
     )
     transformer_type = MiniRocketMultivariate if model == "minirocket" else MultiRocketMultivariate
-    transformer = transformer_type(num_kernels=n_kernels, random_state=cfg.SEED, n_jobs=1)
-    # Queste implementazioni stimano parametri per serie; FitInTransform le rifitta
-    # indipendentemente su ciascun batch, senza apprendere statistiche tra casi.
-    return FitInTransform(transformer)
+    # I bias dei kernel si apprendono dal solo train e vanno riusati sul test.
+    return transformer_type(num_kernels=n_kernels, random_state=cfg.SEED, n_jobs=1)
 
 
 def _fit_rocket(model, X_train, y_train, X_test):
@@ -369,21 +358,22 @@ def _train_torch(model, X, lengths, y, train_idx, test_idx, subjects, dataset):
     return np.concatenate(predictions), fit_time, predict_time, pd.DataFrame(history), device.type
 
 
-def run_experiment(model, dataset):
-    """Esegue un singolo dataset in CV, salvando fold, predizioni e curve."""
+def run_experiment(model, dataset, kind):
+    """Esegue un dataset/rappresentazione in CV, salvando fold, predizioni e curve."""
     from tqdm.auto import tqdm
 
     if model not in MODEL_SPECS:
         raise ValueError(f"Modello avanzato sconosciuto: {model}")
-    kind = MODEL_SPECS[model]["input"]
-    out = _output_dir()
-    prefix = _prefix(model, dataset)
+    if kind not in MODEL_SPECS[model]["inputs"]:
+        raise ValueError(f"{model}: rappresentazione '{kind}' non supportata {MODEL_SPECS[model]['inputs']}")
+    out = utils.results_dir(advanced=True)
+    prefix = utils._prefix(model, dataset, kind)
     folds_path = out / f"{prefix}_folds.csv"
     if folds_path.exists() and not cfg.FORCE_RERUN:
-        print(f"[{model} | {dataset}] risultati già presenti, salto ({folds_path.name}).")
+        print(f"[{model} | {dataset} | {kind}] risultati già presenti, salto ({folds_path.name}).")
         return pd.read_csv(folds_path)
 
-    X, y, record_ids, subjects, feature_names, lengths = _load_data(dataset, kind)
+    X, y, record_ids, subjects, feature_names, lengths = _load_data(model, dataset, kind)
     _quick_subset_note(model, dataset, len(y))
     splits, cv_mode = _split(dataset, y, subjects)
     n_classes = len(cfg.DATASETS[dataset]["class_names"])
@@ -422,7 +412,8 @@ def run_experiment(model, dataset):
             start = time.perf_counter()
             y_pred = np.asarray(estimator.predict(X[test_idx])).ravel().astype(int)
             predict_time = time.perf_counter() - start
-            importances.append(np.asarray(estimator.feature_importances_, dtype=float))
+            if kind == "features":
+                importances.append(np.asarray(estimator.feature_importances_, dtype=float))
         elif model in ROCKET_MODELS:
             y_pred, fit_time, predict_time = _fit_rocket(
                 model, X[train_idx], y[train_idx], X[test_idx]
@@ -476,119 +467,22 @@ def run_experiment(model, dataset):
         )
     if histories:
         pd.concat(histories, ignore_index=True).to_csv(out / f"{prefix}_history.csv", index=False)
-    print(f"[{model} | {dataset}] media ± std:")
+    print(f"[{model} | {dataset} | {kind}] media ± std:")
     for metric in ("accuracy", "f1_macro", "precision_macro", "recall_macro", "fit_time", "predict_time"):
         print(f"  {metric:16}: {folds[metric].mean():.4f} ± {folds[metric].std(ddof=1):.4f}")
     return folds
 
 
 def run_all(model):
-    """Esegue i due dataset appropriati al nuovo modello."""
-    for dataset in MODEL_SPECS[model]["datasets"]:
-        run_experiment(model, dataset)
+    """Esegue tutte le combinazioni dataset x rappresentazione supportate dal modello."""
+    for dataset, kind in utils.EXPERIMENTS:
+        if kind in MODEL_SPECS[model]["inputs"]:
+            run_experiment(model, dataset, kind)
 
 
 def summary_table(model):
-    out = _output_dir()
-    rows = []
-    for dataset in MODEL_SPECS[model]["datasets"]:
-        path = out / f"{_prefix(model, dataset)}_folds.csv"
-        if not path.exists():
-            continue
-        frame = pd.read_csv(path)
-        row = {"dataset": dataset, "input": MODEL_SPECS[model]["input"]}
-        for metric in ("accuracy", "f1_macro", "precision_macro", "recall_macro",
-                       "fit_time", "predict_time", "fall_sensitivity",
-                       "fall_specificity", "fall_precision"):
-            values = frame[metric]
-            row[metric] = "n/c" if values.isna().all() else (
-                f"{values.mean():.4f} ± {values.std(ddof=1):.4f}"
-            )
-        rows.append(row)
-    result = pd.DataFrame(rows)
-    result.to_csv(out / f"{model}_{cfg.CV_MODE}_summary.csv", index=False)
-    return result
+    return utils.summary_table(model, advanced=True)
 
 
 def plot_all(model):
-    """Crea figure distinte per gli esperimenti avanzati già salvati."""
-    import matplotlib.pyplot as plt
-
-    out = _output_dir()
-    for dataset in MODEL_SPECS[model]["datasets"]:
-        prefix = _prefix(model, dataset)
-        folds_path = out / f"{prefix}_folds.csv"
-        if not folds_path.exists():
-            continue
-        folds = pd.read_csv(folds_path)
-        for metric, title in (("accuracy", "Accuracy"), ("f1_macro", "F1 macro")):
-            fig, ax = plt.subplots(figsize=(5, 4))
-            values = folds[metric].to_numpy()
-            ax.boxplot([values], tick_labels=[MODEL_SPECS[model]["input"]], showfliers=False)
-            ax.scatter(np.random.RandomState(cfg.SEED).normal(1, 0.035, len(values)),
-                       values, alpha=0.75, zorder=3)
-            ax.set_title(f"{model} | {dataset} | {title} per fold")
-            ax.set_ylabel(title)
-            fig.savefig(out / f"{prefix}_boxplot_{metric}.png", dpi=150, bbox_inches="tight")
-            plt.show()
-            plt.close(fig)
-
-        fig, ax = plt.subplots(figsize=(6, 4))
-        ax.plot(folds["fold"], folds["fit_time"], marker="o", label="training")
-        ax.plot(folds["fold"], folds["predict_time"], marker="s", label="inferenza")
-        ax.set_xlabel("fold")
-        ax.set_ylabel("tempo (s)")
-        ax.legend()
-        ax.set_title(f"{model} | {dataset} | tempi per fold")
-        fig.savefig(out / f"{prefix}_timing_seconds.png", dpi=150, bbox_inches="tight")
-        plt.show()
-        plt.close(fig)
-
-        class_names = cfg.DATASETS[dataset]["class_names"]
-        matrices = np.load(out / f"{prefix}_confmat.npy")
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            mean_matrix = np.nanmean(matrices, axis=0) * 100
-        size = 6 if len(class_names) <= 10 else 12
-        fig, ax = plt.subplots(figsize=(size + 1, size))
-        image = ax.imshow(np.nan_to_num(mean_matrix), cmap="Blues", vmin=0, vmax=100)
-        ax.set_xticks(range(len(class_names)))
-        ax.set_xticklabels(class_names, rotation=60, ha="right")
-        ax.set_yticks(range(len(class_names)))
-        ax.set_yticklabels(class_names)
-        ax.set_xlabel("predetta")
-        ax.set_ylabel("vera")
-        ax.set_title(f"{model} | {dataset} | confusion matrix media (%)")
-        fig.colorbar(image, ax=ax, fraction=0.046)
-        fig.savefig(out / f"{prefix}_confusion-matrix_percent.png", dpi=150, bbox_inches="tight")
-        plt.show()
-        plt.close(fig)
-
-        importance_path = out / f"{prefix}_importance.csv"
-        if importance_path.exists():
-            importance = pd.read_csv(importance_path).head(20).iloc[::-1]
-            fig, ax = plt.subplots(figsize=(7, 6))
-            ax.barh(importance["feature"], importance["importance_mean"],
-                    xerr=importance["importance_std"])
-            ax.set_xlabel("importanza media sui fold")
-            ax.set_title(f"{model} | {dataset} | top 20 feature")
-            fig.savefig(out / f"{prefix}_importance_top20.png", dpi=150, bbox_inches="tight")
-            plt.show()
-            plt.close(fig)
-
-        history_path = out / f"{prefix}_history.csv"
-        if history_path.exists():
-            history = pd.read_csv(history_path)
-            fig, ax = plt.subplots(figsize=(6, 4))
-            for fold, part in history.groupby("fold"):
-                ax.plot(part["epoch"], part["train_loss"], alpha=0.5,
-                        label=f"train fold {fold}")
-                ax.plot(part["epoch"], part["val_loss"], linestyle="--", alpha=0.7,
-                        label=f"val fold {fold}")
-            ax.set_xlabel("epoca")
-            ax.set_ylabel("cross-entropy")
-            ax.set_title(f"{model} | {dataset} | curve training/validation")
-            ax.legend(fontsize=7)
-            fig.savefig(out / f"{prefix}_learning-curves.png", dpi=150, bbox_inches="tight")
-            plt.show()
-            plt.close(fig)
+    utils.plot_all(model, advanced=True)

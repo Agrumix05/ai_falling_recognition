@@ -73,6 +73,20 @@ FALL_CLASSES = {"UniMiB": list(range(9, 17)), "UniZgFall": [5, 6, 7]}
 # Modelli aggiuntivi (non usati dagli esperimenti SVM/RF/CatBoost esistenti).
 ADVANCED_RESULTS_DIR = RESULTS_DIR / "advanced"
 
+# XGBOOST_PARAMS = {
+#     "n_estimators": 300,
+#     "max_depth": 6,
+#     "learning_rate": 0.05,
+#     "subsample": 0.8,
+#     "colsample_bytree": 0.8,
+#     "objective": "multi:softprob",
+#     "eval_metric": "mlogloss",
+#     "tree_method": "hist",
+#     "random_state": SEED,
+#     "n_jobs": 1,
+# }
+
+
 XGBOOST_PARAMS = {
     "n_estimators": 300,
     "max_depth": 6,
@@ -82,6 +96,7 @@ XGBOOST_PARAMS = {
     "objective": "multi:softprob",
     "eval_metric": "mlogloss",
     "tree_method": "hist",
+    "device": "cuda",
     "random_state": SEED,
     "n_jobs": 1,
 }

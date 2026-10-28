@@ -203,6 +203,11 @@ def build_estimator(model):
     if model == "svm":
         from sklearn.svm import SVC
         return SVC(**cfg.SVM_PARAMS)
+    if model == "svm_scaled":  # variante di "svm": lo scaler e' fittato solo sul training fold (dentro la Pipeline)
+        from sklearn.pipeline import make_pipeline
+        from sklearn.preprocessing import StandardScaler
+        from sklearn.svm import SVC
+        return make_pipeline(StandardScaler(), SVC(**cfg.SVM_PARAMS))
     if model == "rf":
         from sklearn.ensemble import RandomForestClassifier
         n = cfg.QUICK_RF_ESTIMATORS if cfg.QUICK_TEST else cfg.RF_N_ESTIMATORS
@@ -245,8 +250,10 @@ def binary_fall_metrics(dataset, y_true, y_pred):
                 fall_precision=div(tp, tp + fp))
 
 
-def results_dir():
-    d = cfg.RESULTS_DIR / "quick" if cfg.QUICK_TEST else cfg.RESULTS_DIR
+def results_dir(advanced=False):
+    """results/ (SVM, RF, CatBoost, svm_scaled) oppure results/advanced/ (advanced_models.py); sottocartella quick/ in QUICK_TEST."""
+    base = cfg.ADVANCED_RESULTS_DIR if advanced else cfg.RESULTS_DIR
+    d = base / "quick" if cfg.QUICK_TEST else base
     d.mkdir(parents=True, exist_ok=True)
     return d
 
@@ -334,8 +341,8 @@ def run_all(model):
         run_experiment(model, ds, kind)
 
 
-def summary_table(model):
-    out = results_dir()
+def summary_table(model, advanced=False):
+    out = results_dir(advanced)
     rows = []
     for ds, kind in EXPERIMENTS:
         p = out / f"{_prefix(model, ds, kind)}_folds.csv"
@@ -343,7 +350,7 @@ def summary_table(model):
             continue
         f = pd.read_csv(p)
         r = {"dataset": ds, "input": kind}
-        for m in ("accuracy", "f1_macro", "precision_macro", "recall_macro", "fit_time",
+        for m in ("accuracy", "f1_macro", "precision_macro", "recall_macro", "fit_time", "predict_time",
                   "fall_sensitivity", "fall_specificity", "fall_precision"):
             r[m] = "n/c" if f[m].isna().all() else f"{f[m].mean():.4f} ± {f[m].std(ddof=1):.4f}"
         rows.append(r)
@@ -353,16 +360,16 @@ def summary_table(model):
 
 
 # --------------------------------------------------------------------------- plot
-def _save(fig, name):
+def _save(fig, name, out):
     import matplotlib.pyplot as plt
-    fig.savefig(results_dir() / name, dpi=150, bbox_inches="tight")
+    fig.savefig(out / name, dpi=150, bbox_inches="tight")
     plt.show()
     plt.close(fig)
 
 
-def plot_all(model):
+def plot_all(model, advanced=False):
     import matplotlib.pyplot as plt
-    out = results_dir()
+    out = results_dir(advanced)
     cv = cfg.CV_MODE
     for ds in cfg.DATASETS:
         have = {k: pd.read_csv(out / f"{_prefix(model, ds, k)}_folds.csv")
@@ -378,13 +385,13 @@ def plot_all(model):
                 ax.scatter(np.random.RandomState(cfg.SEED).normal(j, 0.04, len(v)), v, alpha=.7, zorder=3)
             ax.set_title(f"{model} | {ds} | {title} per fold ({cv})")
             ax.set_ylabel(title)
-            _save(fig, f"{model}_{ds}_boxplot_{metric}.png")
+            _save(fig, f"{model}_{ds}_boxplot_{metric}.png", out)
         fig, ax = plt.subplots(figsize=(6, 4))
         for k, f in have.items():
             ax.plot(f["fold"], f["fit_time"], marker="o", label=k)
         ax.set_xlabel("fold"); ax.set_ylabel("tempo di fit (s)"); ax.legend()
         ax.set_title(f"{model} | {ds} | tempi di training ({cv})")
-        _save(fig, f"{model}_{ds}_fit-time_seconds.png")
+        _save(fig, f"{model}_{ds}_fit-time_seconds.png", out)
         names = cfg.DATASETS[ds]["class_names"]
         for k in have:
             cm = np.load(out / f"{_prefix(model, ds, k)}_confmat.npy")
@@ -406,7 +413,7 @@ def plot_all(model):
             ax.set_xlabel("predetta"); ax.set_ylabel("vera")
             ax.set_title(f"{model} | {ds} | {k} | confusion matrix media (% per riga, {cv})")
             fig.colorbar(im, ax=ax, fraction=0.046)
-            _save(fig, f"{model}_{ds}_{k}_confusion-matrix_percent.png")
+            _save(fig, f"{model}_{ds}_{k}_confusion-matrix_percent.png", out)
         p = out / f"{_prefix(model, ds, 'features')}_importance.csv"
         if p.exists():
             imp = pd.read_csv(p).head(20)[::-1]
@@ -414,4 +421,14 @@ def plot_all(model):
             ax.barh(imp["feature"], imp["importance_mean"], xerr=imp["importance_std"])
             ax.set_xlabel("importanza media sui fold")
             ax.set_title(f"{model} | {ds} | top 20 feature importance ({cv})")
-            _save(fig, f"{model}_{ds}_features_importance_top20.png")
+            _save(fig, f"{model}_{ds}_features_importance_top20.png", out)
+        h = out / f"{_prefix(model, ds, 'raw')}_history.csv"  # solo modelli con validation interna (CNN)
+        if h.exists():
+            hist = pd.read_csv(h)
+            fig, ax = plt.subplots(figsize=(6, 4))
+            for fold, part in hist.groupby("fold"):
+                ax.plot(part["epoch"], part["train_loss"], alpha=.5, label=f"train fold {fold}")
+                ax.plot(part["epoch"], part["val_loss"], ls="--", alpha=.7, label=f"val fold {fold}")
+            ax.set_xlabel("epoca"); ax.set_ylabel("cross-entropy"); ax.legend(fontsize=7)
+            ax.set_title(f"{model} | {ds} | curve training/validation ({cv})")
+            _save(fig, f"{model}_{ds}_learning-curves.png", out)
