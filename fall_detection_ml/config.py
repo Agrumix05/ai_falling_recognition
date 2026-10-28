@@ -68,3 +68,38 @@ DATASETS = {
 # UniMiB: 9-16 (Falling*, Syncope, HittingObstacle). UniZgFall: NON verificabile -> None (metrica non calcolata).
 # Per abilitarla inserire una lista di codici label, es. [5, 6, 7].
 FALL_CLASSES = {"UniMiB": list(range(9, 17)), "UniZgFall": [5, 6, 7]}
+
+# ---------------------------------------------------------------------------
+# Modelli aggiuntivi (non usati dagli esperimenti SVM/RF/CatBoost esistenti).
+ADVANCED_RESULTS_DIR = RESULTS_DIR / "advanced"
+
+XGBOOST_PARAMS = {
+    "n_estimators": 300,
+    "max_depth": 6,
+    "learning_rate": 0.05,
+    "subsample": 0.8,
+    "colsample_bytree": 0.8,
+    "objective": "multi:softprob",
+    "eval_metric": "mlogloss",
+    "tree_method": "hist",
+    "random_state": SEED,
+    "n_jobs": 1,
+}
+QUICK_XGBOOST_PARAMS = {"n_estimators": 10, "max_depth": 3}
+
+# Rocket needs a fixed temporal dimension. The existing raw files already use
+# zero-padding to 5150/3208 samples; no per-example resampling is applied.
+MINIROCKET_NUM_KERNELS = 10000
+MULTIROCKET_NUM_KERNELS = 6250
+QUICK_ROCKET_NUM_KERNELS = 84
+
+TORCH_BATCH_SIZE = 64
+TORCH_LEARNING_RATE = 1e-3
+TORCH_WEIGHT_DECAY = 1e-4
+TORCH_MAX_EPOCHS = 30
+TORCH_EARLY_STOPPING_PATIENCE = 5
+TORCH_VALIDATION_FRACTION = 0.2
+TORCH_CHANNELS = (32, 64, 128)
+QUICK_TORCH_BATCH_SIZE = 16
+QUICK_TORCH_MAX_EPOCHS = 2
+QUICK_TORCH_CHANNELS = (8, 16, 32)
