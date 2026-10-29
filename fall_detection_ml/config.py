@@ -30,7 +30,11 @@ CATBOOST_ITERATIONS = None  # None = default CatBoost (1000)
 CATBOOST_LOG_EVERY = 100  # stampa ogni N iterazioni; 0 = nessun log
 SVM_PARAMS = dict(probability=True)  # resto: default scikit-learn
 RF_PARAMS = dict(random_state=SEED)
-CATBOOST_PARAMS = dict(random_seed=SEED, allow_writing_files=False)
+
+# CATBOOST_PARAMS = dict(random_seed=SEED, allow_writing_files=False)
+CATBOOST_PARAMS = dict(random_seed=SEED, allow_writing_files=False,
+                       task_type="GPU", devices="0")
+
 
 # Lunghezza di padding dei dati grezzi (valori dei notebook originali).
 # Se la lunghezza reale massima la supera, viene usata quella reale. None = sempre il massimo reale.
@@ -42,6 +46,7 @@ UNIMIB_CLASSES = [
     "FallingRight", "FallingLeft", "Syncope", "FallingBackSC", "FallingWithPS",
     "HittingObstacle",
 ]
+
 UNIZGFALL_CLASSES = ["MW", "MR", "MJ", "WD", "WU", "FF", "FS", "FB", "LD", "OT"]
 
 DATASETS = {
@@ -63,3 +68,53 @@ DATASETS = {
 # UniMiB: 9-16 (Falling*, Syncope, HittingObstacle). UniZgFall: NON verificabile -> None (metrica non calcolata).
 # Per abilitarla inserire una lista di codici label, es. [5, 6, 7].
 FALL_CLASSES = {"UniMiB": list(range(9, 17)), "UniZgFall": [5, 6, 7]}
+
+# ---------------------------------------------------------------------------
+# Modelli aggiuntivi (non usati dagli esperimenti SVM/RF/CatBoost esistenti).
+ADVANCED_RESULTS_DIR = RESULTS_DIR / "advanced"
+
+# XGBOOST_PARAMS = {
+#     "n_estimators": 300,
+#     "max_depth": 6,
+#     "learning_rate": 0.05,
+#     "subsample": 0.8,
+#     "colsample_bytree": 0.8,
+#     "objective": "multi:softprob",
+#     "eval_metric": "mlogloss",
+#     "tree_method": "hist",
+#     "random_state": SEED,
+#     "n_jobs": 1,
+# }
+
+
+XGBOOST_PARAMS = {
+    "n_estimators": 300,
+    "max_depth": 6,
+    "learning_rate": 0.05,
+    "subsample": 0.8,
+    "colsample_bytree": 0.8,
+    "objective": "multi:softprob",
+    "eval_metric": "mlogloss",
+    "tree_method": "hist",
+    "device": "cuda",
+    "random_state": SEED,
+    "n_jobs": 1,
+}
+QUICK_XGBOOST_PARAMS = {"n_estimators": 10, "max_depth": 3}
+
+# Rocket needs a fixed temporal dimension. The existing raw files already use
+# zero-padding to 5150/3208 samples; no per-example resampling is applied.
+MINIROCKET_NUM_KERNELS = 10000
+MULTIROCKET_NUM_KERNELS = 6250
+QUICK_ROCKET_NUM_KERNELS = 84
+
+TORCH_BATCH_SIZE = 64
+TORCH_LEARNING_RATE = 1e-3
+TORCH_WEIGHT_DECAY = 1e-4
+TORCH_MAX_EPOCHS = 30
+TORCH_EARLY_STOPPING_PATIENCE = 5
+TORCH_VALIDATION_FRACTION = 0.2
+TORCH_CHANNELS = (32, 64, 128)
+QUICK_TORCH_BATCH_SIZE = 16
+QUICK_TORCH_MAX_EPOCHS = 2
+QUICK_TORCH_CHANNELS = (8, 16, 32)

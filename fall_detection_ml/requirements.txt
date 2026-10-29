@@ -8,3 +8,6 @@ natsort
 tqdm
 jupyter
 ipykernel
+xgboost
+sktime
+torch
