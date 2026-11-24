@@ -1,0 +1,30 @@
+{
+  "source": "/home/agrume/Desktop/projects/thesis/ml_accelerometers/UniMib_SHAR_complete",
+  "output": "/home/agrume/Desktop/projects/thesis/fall_detection_ml/data/UniMiBComplete",
+  "source_format": "MATLAB v5",
+  "subjects": 30,
+  "recordings": 1980,
+  "activities": 17,
+  "ml_csv_columns": [
+    "x",
+    "y",
+    "z"
+  ],
+  "full_csv_columns": [
+    "x",
+    "y",
+    "z",
+    "time_ns",
+    "time_s",
+    "magnitude"
+  ],
+  "trimming": "remove only trailing rows with NaN in x/y/z/magnitude",
+  "normalization": false,
+  "filtering": false,
+  "resampling": false,
+  "windows_151_exported": true,
+  "windows_151_count": 11771,
+  "source_units_documented": false,
+  "inferred_nominal_sample_rate_hz": 50,
+  "sample_rate_is_officially_documented": false
+}

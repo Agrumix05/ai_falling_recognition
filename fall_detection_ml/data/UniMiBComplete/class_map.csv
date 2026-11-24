@@ -1,0 +1,18 @@
+activity_name,project_label,source_label,display_name,coarse_label,coarse_name
+Walking,0,3,Walking,0,adl
+Running,1,4,Running,0,adl
+GoingUpS,2,5,Going upstairs,0,adl
+GoingDownS,3,7,Going downstairs,0,adl
+Jumping,4,6,Jumping,0,adl
+SittingDown,5,9,Sitting down,0,adl
+StandingUpFS,6,1,Standing up from sitting,0,adl
+LyingDownFS,7,8,Lying down from standing,0,adl
+StandingUpFL,8,2,Standing up from laying,0,adl
+FallingForw,9,10,Generic falling forward,1,fall
+FallingBack,10,12,Generic falling backward,1,fall
+FallingRight,11,11,Falling rightward,1,fall
+FallingLeft,12,17,Falling leftward,1,fall
+Syncope,13,16,Syncope,1,fall
+FallingBackSC,14,15,Falling backward-sitting-chair,1,fall
+FallingWithPS,15,14,Falling with protection strategies,1,fall
+HittingObstacle,16,13,Hitting an obstacle in the fall,1,fall
