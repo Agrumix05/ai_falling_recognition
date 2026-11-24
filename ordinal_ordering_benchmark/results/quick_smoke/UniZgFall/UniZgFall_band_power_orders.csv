@@ -1,0 +1,21 @@
+dataset,fold,method,position,label,class_name
+UniZgFall,1,Band power,0,9,OT
+UniZgFall,1,Band power,1,8,LD
+UniZgFall,1,Band power,2,4,WU
+UniZgFall,1,Band power,3,0,MW
+UniZgFall,1,Band power,4,7,FB
+UniZgFall,1,Band power,5,3,WD
+UniZgFall,1,Band power,6,5,FF
+UniZgFall,1,Band power,7,6,FS
+UniZgFall,1,Band power,8,2,MJ
+UniZgFall,1,Band power,9,1,MR
+UniZgFall,2,Band power,0,9,OT
+UniZgFall,2,Band power,1,8,LD
+UniZgFall,2,Band power,2,4,WU
+UniZgFall,2,Band power,3,0,MW
+UniZgFall,2,Band power,4,7,FB
+UniZgFall,2,Band power,5,3,WD
+UniZgFall,2,Band power,6,5,FF
+UniZgFall,2,Band power,7,6,FS
+UniZgFall,2,Band power,8,2,MJ
+UniZgFall,2,Band power,9,1,MR

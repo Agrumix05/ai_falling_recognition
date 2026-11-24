@@ -1,0 +1,7 @@
+dataset,method,mean_pairwise_kendall_tau,std_pairwise_kendall_tau,mean_rank_std
+UniZgFall,Band power,0.9999999999999999,,0.0
+UniZgFall,Random order,-0.05925925925925924,0.4028703597299895,2.807063969861166
+UniZgFall,Confusion-based,0.28888888888888886,,1.4142135623730951
+UniZgFall,Feature-based,0.9999999999999999,,0.0
+UniZgFall,Embedding-based,0.8666666666666666,,0.282842712474619
+UniZgFall,Optimization-based,0.9999999999999999,,0.0

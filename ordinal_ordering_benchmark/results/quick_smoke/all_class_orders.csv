@@ -1,0 +1,141 @@
+dataset,fold,method,position,label,class_name,random_rep,random_seed,random_label
+UniZgFall,1,Band power,0,9,OT,,,
+UniZgFall,1,Band power,1,8,LD,,,
+UniZgFall,1,Band power,2,4,WU,,,
+UniZgFall,1,Band power,3,0,MW,,,
+UniZgFall,1,Band power,4,7,FB,,,
+UniZgFall,1,Band power,5,3,WD,,,
+UniZgFall,1,Band power,6,5,FF,,,
+UniZgFall,1,Band power,7,6,FS,,,
+UniZgFall,1,Band power,8,2,MJ,,,
+UniZgFall,1,Band power,9,1,MR,,,
+UniZgFall,2,Band power,0,9,OT,,,
+UniZgFall,2,Band power,1,8,LD,,,
+UniZgFall,2,Band power,2,4,WU,,,
+UniZgFall,2,Band power,3,0,MW,,,
+UniZgFall,2,Band power,4,7,FB,,,
+UniZgFall,2,Band power,5,3,WD,,,
+UniZgFall,2,Band power,6,5,FF,,,
+UniZgFall,2,Band power,7,6,FS,,,
+UniZgFall,2,Band power,8,2,MJ,,,
+UniZgFall,2,Band power,9,1,MR,,,
+UniZgFall,1,Random order,0,1,MR,0.0,4108.0,Random order seed 1
+UniZgFall,1,Random order,1,4,WU,0.0,4108.0,Random order seed 1
+UniZgFall,1,Random order,2,0,MW,0.0,4108.0,Random order seed 1
+UniZgFall,1,Random order,3,8,LD,0.0,4108.0,Random order seed 1
+UniZgFall,1,Random order,4,3,WD,0.0,4108.0,Random order seed 1
+UniZgFall,1,Random order,5,2,MJ,0.0,4108.0,Random order seed 1
+UniZgFall,1,Random order,6,9,OT,0.0,4108.0,Random order seed 1
+UniZgFall,1,Random order,7,6,FS,0.0,4108.0,Random order seed 1
+UniZgFall,1,Random order,8,5,FF,0.0,4108.0,Random order seed 1
+UniZgFall,1,Random order,9,7,FB,0.0,4108.0,Random order seed 1
+UniZgFall,1,Random order,0,9,OT,1.0,104108.0,Random order seed 2
+UniZgFall,1,Random order,1,3,WD,1.0,104108.0,Random order seed 2
+UniZgFall,1,Random order,2,0,MW,1.0,104108.0,Random order seed 2
+UniZgFall,1,Random order,3,2,MJ,1.0,104108.0,Random order seed 2
+UniZgFall,1,Random order,4,4,WU,1.0,104108.0,Random order seed 2
+UniZgFall,1,Random order,5,8,LD,1.0,104108.0,Random order seed 2
+UniZgFall,1,Random order,6,6,FS,1.0,104108.0,Random order seed 2
+UniZgFall,1,Random order,7,1,MR,1.0,104108.0,Random order seed 2
+UniZgFall,1,Random order,8,7,FB,1.0,104108.0,Random order seed 2
+UniZgFall,1,Random order,9,5,FF,1.0,104108.0,Random order seed 2
+UniZgFall,2,Random order,0,9,OT,0.0,8127.0,Random order seed 1
+UniZgFall,2,Random order,1,6,FS,0.0,8127.0,Random order seed 1
+UniZgFall,2,Random order,2,1,MR,0.0,8127.0,Random order seed 1
+UniZgFall,2,Random order,3,4,WU,0.0,8127.0,Random order seed 1
+UniZgFall,2,Random order,4,3,WD,0.0,8127.0,Random order seed 1
+UniZgFall,2,Random order,5,0,MW,0.0,8127.0,Random order seed 1
+UniZgFall,2,Random order,6,5,FF,0.0,8127.0,Random order seed 1
+UniZgFall,2,Random order,7,8,LD,0.0,8127.0,Random order seed 1
+UniZgFall,2,Random order,8,2,MJ,0.0,8127.0,Random order seed 1
+UniZgFall,2,Random order,9,7,FB,0.0,8127.0,Random order seed 1
+UniZgFall,2,Random order,0,7,FB,1.0,108127.0,Random order seed 2
+UniZgFall,2,Random order,1,3,WD,1.0,108127.0,Random order seed 2
+UniZgFall,2,Random order,2,5,FF,1.0,108127.0,Random order seed 2
+UniZgFall,2,Random order,3,9,OT,1.0,108127.0,Random order seed 2
+UniZgFall,2,Random order,4,6,FS,1.0,108127.0,Random order seed 2
+UniZgFall,2,Random order,5,2,MJ,1.0,108127.0,Random order seed 2
+UniZgFall,2,Random order,6,8,LD,1.0,108127.0,Random order seed 2
+UniZgFall,2,Random order,7,0,MW,1.0,108127.0,Random order seed 2
+UniZgFall,2,Random order,8,4,WU,1.0,108127.0,Random order seed 2
+UniZgFall,2,Random order,9,1,MR,1.0,108127.0,Random order seed 2
+UniZgFall,1,Confusion-based,0,3,WD,,,
+UniZgFall,1,Confusion-based,1,4,WU,,,
+UniZgFall,1,Confusion-based,2,0,MW,,,
+UniZgFall,1,Confusion-based,3,1,MR,,,
+UniZgFall,1,Confusion-based,4,2,MJ,,,
+UniZgFall,1,Confusion-based,5,9,OT,,,
+UniZgFall,1,Confusion-based,6,5,FF,,,
+UniZgFall,1,Confusion-based,7,8,LD,,,
+UniZgFall,1,Confusion-based,8,7,FB,,,
+UniZgFall,1,Confusion-based,9,6,FS,,,
+UniZgFall,2,Confusion-based,0,4,WU,,,
+UniZgFall,2,Confusion-based,1,3,WD,,,
+UniZgFall,2,Confusion-based,2,1,MR,,,
+UniZgFall,2,Confusion-based,3,0,MW,,,
+UniZgFall,2,Confusion-based,4,6,FS,,,
+UniZgFall,2,Confusion-based,5,7,FB,,,
+UniZgFall,2,Confusion-based,6,5,FF,,,
+UniZgFall,2,Confusion-based,7,8,LD,,,
+UniZgFall,2,Confusion-based,8,9,OT,,,
+UniZgFall,2,Confusion-based,9,2,MJ,,,
+UniZgFall,1,Feature-based,0,3,WD,,,
+UniZgFall,1,Feature-based,1,4,WU,,,
+UniZgFall,1,Feature-based,2,2,MJ,,,
+UniZgFall,1,Feature-based,3,0,MW,,,
+UniZgFall,1,Feature-based,4,9,OT,,,
+UniZgFall,1,Feature-based,5,8,LD,,,
+UniZgFall,1,Feature-based,6,7,FB,,,
+UniZgFall,1,Feature-based,7,5,FF,,,
+UniZgFall,1,Feature-based,8,6,FS,,,
+UniZgFall,1,Feature-based,9,1,MR,,,
+UniZgFall,2,Feature-based,0,3,WD,,,
+UniZgFall,2,Feature-based,1,4,WU,,,
+UniZgFall,2,Feature-based,2,2,MJ,,,
+UniZgFall,2,Feature-based,3,0,MW,,,
+UniZgFall,2,Feature-based,4,9,OT,,,
+UniZgFall,2,Feature-based,5,8,LD,,,
+UniZgFall,2,Feature-based,6,7,FB,,,
+UniZgFall,2,Feature-based,7,5,FF,,,
+UniZgFall,2,Feature-based,8,6,FS,,,
+UniZgFall,2,Feature-based,9,1,MR,,,
+UniZgFall,1,Embedding-based,0,4,WU,,,
+UniZgFall,1,Embedding-based,1,3,WD,,,
+UniZgFall,1,Embedding-based,2,0,MW,,,
+UniZgFall,1,Embedding-based,3,1,MR,,,
+UniZgFall,1,Embedding-based,4,6,FS,,,
+UniZgFall,1,Embedding-based,5,7,FB,,,
+UniZgFall,1,Embedding-based,6,5,FF,,,
+UniZgFall,1,Embedding-based,7,8,LD,,,
+UniZgFall,1,Embedding-based,8,9,OT,,,
+UniZgFall,1,Embedding-based,9,2,MJ,,,
+UniZgFall,2,Embedding-based,0,4,WU,,,
+UniZgFall,2,Embedding-based,1,3,WD,,,
+UniZgFall,2,Embedding-based,2,0,MW,,,
+UniZgFall,2,Embedding-based,3,7,FB,,,
+UniZgFall,2,Embedding-based,4,6,FS,,,
+UniZgFall,2,Embedding-based,5,1,MR,,,
+UniZgFall,2,Embedding-based,6,5,FF,,,
+UniZgFall,2,Embedding-based,7,8,LD,,,
+UniZgFall,2,Embedding-based,8,9,OT,,,
+UniZgFall,2,Embedding-based,9,2,MJ,,,
+UniZgFall,1,Optimization-based,0,3,WD,,,
+UniZgFall,1,Optimization-based,1,4,WU,,,
+UniZgFall,1,Optimization-based,2,2,MJ,,,
+UniZgFall,1,Optimization-based,3,0,MW,,,
+UniZgFall,1,Optimization-based,4,9,OT,,,
+UniZgFall,1,Optimization-based,5,8,LD,,,
+UniZgFall,1,Optimization-based,6,7,FB,,,
+UniZgFall,1,Optimization-based,7,5,FF,,,
+UniZgFall,1,Optimization-based,8,6,FS,,,
+UniZgFall,1,Optimization-based,9,1,MR,,,
+UniZgFall,2,Optimization-based,0,3,WD,,,
+UniZgFall,2,Optimization-based,1,4,WU,,,
+UniZgFall,2,Optimization-based,2,2,MJ,,,
+UniZgFall,2,Optimization-based,3,0,MW,,,
+UniZgFall,2,Optimization-based,4,9,OT,,,
+UniZgFall,2,Optimization-based,5,8,LD,,,
+UniZgFall,2,Optimization-based,6,7,FB,,,
+UniZgFall,2,Optimization-based,7,5,FF,,,
+UniZgFall,2,Optimization-based,8,6,FS,,,
+UniZgFall,2,Optimization-based,9,1,MR,,,

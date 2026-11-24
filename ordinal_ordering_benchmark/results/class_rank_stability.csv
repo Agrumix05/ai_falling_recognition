@@ -1,0 +1,163 @@
+dataset,method,label,class_name,mean_position,position_std,unique_positions
+UniZgFall,Band power,0,MW,3.0,0.0,1
+UniZgFall,Band power,1,MR,9.0,0.0,1
+UniZgFall,Band power,2,MJ,8.0,0.0,1
+UniZgFall,Band power,3,WD,5.0,0.0,1
+UniZgFall,Band power,4,WU,2.0,0.0,1
+UniZgFall,Band power,5,FF,6.0,0.0,1
+UniZgFall,Band power,6,FS,7.0,0.0,1
+UniZgFall,Band power,7,FB,4.0,0.0,1
+UniZgFall,Band power,8,LD,1.0,0.0,1
+UniZgFall,Band power,9,OT,0.0,0.0,1
+UniZgFall,Random order,0,MW,4.8,2.8319781959811348,10
+UniZgFall,Random order,1,MR,4.86,2.997553441252687,10
+UniZgFall,Random order,2,MJ,4.595,2.917797579265539,10
+UniZgFall,Random order,3,WD,4.49,2.8847023308633495,10
+UniZgFall,Random order,4,WU,4.305,2.7822074674545387,10
+UniZgFall,Random order,5,FF,4.575,2.8380712184873076,10
+UniZgFall,Random order,6,FS,4.235,2.8248315643298403,10
+UniZgFall,Random order,7,FB,4.475,3.0356963387839917,10
+UniZgFall,Random order,8,LD,4.415,2.7110002975037326,10
+UniZgFall,Random order,9,OT,4.25,2.884284222712272,10
+UniZgFall,Confusion-based,0,MW,3.0,2.6666666666666665,5
+UniZgFall,Confusion-based,1,MR,4.1,1.7919573407620815,3
+UniZgFall,Confusion-based,2,MJ,3.7,1.3374935098492586,3
+UniZgFall,Confusion-based,3,WD,2.9,3.3813212407775355,5
+UniZgFall,Confusion-based,4,WU,3.2,4.049691346263318,4
+UniZgFall,Confusion-based,5,FF,6.1,2.5582111805799856,6
+UniZgFall,Confusion-based,6,FS,6.8,3.794733192202055,3
+UniZgFall,Confusion-based,7,FB,5.6,2.590581230363393,6
+UniZgFall,Confusion-based,8,LD,5.1,1.9692073983655907,4
+UniZgFall,Confusion-based,9,OT,4.5,1.2692955176439846,3
+UniZgFall,Feature-based,0,MW,2.6,0.5163977794943223,2
+UniZgFall,Feature-based,1,MR,7.5,2.41522945769824,2
+UniZgFall,Feature-based,2,MJ,2.4,0.5163977794943223,2
+UniZgFall,Feature-based,3,WD,0.4,0.5163977794943223,2
+UniZgFall,Feature-based,4,WU,0.6,0.5163977794943223,2
+UniZgFall,Feature-based,5,FF,6.7,0.48304589153964794,2
+UniZgFall,Feature-based,6,FS,7.1,1.449137674618944,2
+UniZgFall,Feature-based,7,FB,6.3,0.48304589153964794,2
+UniZgFall,Feature-based,8,LD,5.9,1.449137674618944,2
+UniZgFall,Feature-based,9,OT,5.5,2.41522945769824,2
+UniZgFall,Embedding-based,0,MW,2.0,0.0,1
+UniZgFall,Embedding-based,1,MR,3.7,0.9486832980505138,3
+UniZgFall,Embedding-based,2,MJ,8.7,0.9486832980505138,2
+UniZgFall,Embedding-based,3,WD,0.9,0.31622776601683794,2
+UniZgFall,Embedding-based,4,WU,0.1,0.31622776601683794,2
+UniZgFall,Embedding-based,5,FF,6.3,0.9486832980505138,2
+UniZgFall,Embedding-based,6,FS,4.1,0.31622776601683794,2
+UniZgFall,Embedding-based,7,FB,4.2,1.0327955589886446,2
+UniZgFall,Embedding-based,8,LD,7.1,0.31622776601683794,2
+UniZgFall,Embedding-based,9,OT,7.9,0.31622776601683794,2
+UniZgFall,Optimization-based,0,MW,2.7,2.110818693198342,5
+UniZgFall,Optimization-based,1,MR,7.1,2.7264140062238043,4
+UniZgFall,Optimization-based,2,MJ,2.9,1.8529256146249728,3
+UniZgFall,Optimization-based,3,WD,1.7,2.8303906287138374,4
+UniZgFall,Optimization-based,4,WU,1.9,2.7264140062238043,4
+UniZgFall,Optimization-based,5,FF,6.0,2.211083193570267,4
+UniZgFall,Optimization-based,6,FS,6.9,1.5951314818673865,4
+UniZgFall,Optimization-based,7,FB,5.8,1.1352924243950935,4
+UniZgFall,Optimization-based,8,LD,5.8,1.6193277068654826,5
+UniZgFall,Optimization-based,9,OT,4.2,2.573367875415838,6
+UniMiB,Band power,0,Walking,0.0,0.0,1
+UniMiB,Band power,1,Running,9.0,0.0,1
+UniMiB,Band power,2,GoingUpS,2.0,0.0,1
+UniMiB,Band power,3,GoingDownS,1.0,0.0,1
+UniMiB,Band power,4,Jumping,7.0,0.0,1
+UniMiB,Band power,5,SittingDown,6.0,0.0,1
+UniMiB,Band power,6,StandingUpFS,4.0,0.0,1
+UniMiB,Band power,7,LyingDownFS,5.0,0.0,1
+UniMiB,Band power,8,StandingUpFL,3.0,0.0,1
+UniMiB,Band power,9,FallingForw,11.0,0.0,1
+UniMiB,Band power,10,FallingBack,15.0,0.0,1
+UniMiB,Band power,11,FallingRight,13.0,0.0,1
+UniMiB,Band power,12,FallingLeft,14.0,0.0,1
+UniMiB,Band power,13,Syncope,12.0,0.0,1
+UniMiB,Band power,14,FallingBackSC,10.0,0.0,1
+UniMiB,Band power,15,FallingWithPS,8.0,0.0,1
+UniMiB,Band power,16,HittingObstacle,16.0,0.0,1
+UniMiB,Random order,0,Walking,8.07,5.010050200853818,17
+UniMiB,Random order,1,Running,8.41,4.665914033589156,17
+UniMiB,Random order,2,GoingUpS,8.02,4.879410129931732,17
+UniMiB,Random order,3,GoingDownS,8.39,4.926382672017652,17
+UniMiB,Random order,4,Jumping,7.515,4.92351296327099,17
+UniMiB,Random order,5,SittingDown,8.32,4.785614960771899,17
+UniMiB,Random order,6,StandingUpFS,7.315,4.92412530813862,17
+UniMiB,Random order,7,LyingDownFS,7.27,5.132133471554422,17
+UniMiB,Random order,8,StandingUpFL,7.865,5.103627146476441,17
+UniMiB,Random order,9,FallingForw,8.185,4.805856456596164,17
+UniMiB,Random order,10,FallingBack,7.705,4.858601138715302,17
+UniMiB,Random order,11,FallingRight,8.265,4.7905660013264955,17
+UniMiB,Random order,12,FallingLeft,8.165,5.078061494577785,17
+UniMiB,Random order,13,Syncope,8.31,4.8674800265687,17
+UniMiB,Random order,14,FallingBackSC,7.835,4.534377343081102,17
+UniMiB,Random order,15,FallingWithPS,8.215,5.1175896297075685,17
+UniMiB,Random order,16,HittingObstacle,8.145,4.8312191413720615,17
+UniMiB,Confusion-based,0,Walking,3.2,6.746192341692543,2
+UniMiB,Confusion-based,1,Running,3.8,5.902918298980974,2
+UniMiB,Confusion-based,2,GoingUpS,6.6,3.8643671323171835,3
+UniMiB,Confusion-based,3,GoingDownS,7.0,4.346134936801766,5
+UniMiB,Confusion-based,4,Jumping,6.2,3.5839146815241634,5
+UniMiB,Confusion-based,5,SittingDown,5.7,2.1628170930011117,4
+UniMiB,Confusion-based,6,StandingUpFS,5.7,2.869378562220979,5
+UniMiB,Confusion-based,7,LyingDownFS,6.5,2.41522945769824,6
+UniMiB,Confusion-based,8,StandingUpFL,5.7,2.94580681270476,5
+UniMiB,Confusion-based,9,FallingForw,11.8,5.329165037789691,5
+UniMiB,Confusion-based,10,FallingBack,9.9,4.094712037087183,5
+UniMiB,Confusion-based,11,FallingRight,10.4,3.893013685508382,6
+UniMiB,Confusion-based,12,FallingLeft,10.6,3.921450978627398,7
+UniMiB,Confusion-based,13,Syncope,10.4,3.687817782917155,5
+UniMiB,Confusion-based,14,FallingBackSC,9.7,4.643992535164831,5
+UniMiB,Confusion-based,15,FallingWithPS,12.0,5.011098792790969,7
+UniMiB,Confusion-based,16,HittingObstacle,10.8,4.541169697580373,6
+UniMiB,Feature-based,0,Walking,6.6,7.229568912920512,2
+UniMiB,Feature-based,1,Running,6.4,8.262364471909157,2
+UniMiB,Feature-based,2,GoingUpS,7.6,1.8973665961010275,4
+UniMiB,Feature-based,3,GoingDownS,7.8,1.3165611772087666,4
+UniMiB,Feature-based,4,Jumping,8.0,0.0,1
+UniMiB,Feature-based,5,SittingDown,7.4,5.015531433014408,6
+UniMiB,Feature-based,6,StandingUpFS,7.2,5.0508525133002165,6
+UniMiB,Feature-based,7,LyingDownFS,6.8,4.5166359162544865,4
+UniMiB,Feature-based,8,StandingUpFL,7.0,4.546060565661952,4
+UniMiB,Feature-based,9,FallingForw,9.6,8.262364471909157,2
+UniMiB,Feature-based,10,FallingBack,8.4,2.0655911179772892,2
+UniMiB,Feature-based,11,FallingRight,9.0,4.784233364802441,4
+UniMiB,Feature-based,12,FallingLeft,8.9,3.3813212407775355,3
+UniMiB,Feature-based,13,Syncope,8.5,4.352521619066865,5
+UniMiB,Feature-based,14,FallingBackSC,8.2,1.0327955589886444,2
+UniMiB,Feature-based,15,FallingWithPS,9.4,7.229568912920512,2
+UniMiB,Feature-based,16,HittingObstacle,9.2,6.196773353931867,2
+UniMiB,Embedding-based,0,Walking,1.0,0.0,1
+UniMiB,Embedding-based,1,Running,0.0,0.0,1
+UniMiB,Embedding-based,2,GoingUpS,6.9,0.31622776601683794,2
+UniMiB,Embedding-based,3,GoingDownS,6.1,0.31622776601683794,2
+UniMiB,Embedding-based,4,Jumping,8.0,0.0,1
+UniMiB,Embedding-based,5,SittingDown,5.0,0.0,1
+UniMiB,Embedding-based,6,StandingUpFS,4.0,0.0,1
+UniMiB,Embedding-based,7,LyingDownFS,2.0,0.0,1
+UniMiB,Embedding-based,8,StandingUpFL,3.0,0.0,1
+UniMiB,Embedding-based,9,FallingForw,15.7,0.4830458915396479,2
+UniMiB,Embedding-based,10,FallingBack,10.9,0.7378647873726218,3
+UniMiB,Embedding-based,11,FallingRight,10.7,1.8287822299126937,3
+UniMiB,Embedding-based,12,FallingLeft,14.0,0.0,1
+UniMiB,Embedding-based,13,Syncope,11.9,0.9944289260117533,4
+UniMiB,Embedding-based,14,FallingBackSC,11.0,2.1081851067789197,2
+UniMiB,Embedding-based,15,FallingWithPS,15.3,0.4830458915396479,2
+UniMiB,Embedding-based,16,HittingObstacle,10.5,0.7071067811865476,3
+UniMiB,Optimization-based,0,Walking,6.6,7.229568912920512,2
+UniMiB,Optimization-based,1,Running,5.2,7.554248252914824,3
+UniMiB,Optimization-based,2,GoingUpS,7.6,1.8973665961010275,4
+UniMiB,Optimization-based,3,GoingDownS,7.8,1.3165611772087666,4
+UniMiB,Optimization-based,4,Jumping,8.0,0.0,1
+UniMiB,Optimization-based,5,SittingDown,7.3,5.121848624601603,5
+UniMiB,Optimization-based,6,StandingUpFS,7.3,4.945255863507525,5
+UniMiB,Optimization-based,7,LyingDownFS,6.8,4.5166359162544865,4
+UniMiB,Optimization-based,8,StandingUpFL,7.0,4.546060565661952,4
+UniMiB,Optimization-based,9,FallingForw,9.6,8.262364471909157,2
+UniMiB,Optimization-based,10,FallingBack,8.4,2.0655911179772892,2
+UniMiB,Optimization-based,11,FallingRight,10.2,4.894441291460708,5
+UniMiB,Optimization-based,12,FallingLeft,8.6,3.8643671323171835,4
+UniMiB,Optimization-based,13,Syncope,8.9,4.771442828607157,6
+UniMiB,Optimization-based,14,FallingBackSC,8.2,1.0327955589886444,2
+UniMiB,Optimization-based,15,FallingWithPS,9.0,6.99205898780101,3
+UniMiB,Optimization-based,16,HittingObstacle,9.5,5.873670062235365,3

@@ -1,0 +1,61 @@
+dataset,method,label,class_name,mean_position,position_std,unique_positions
+UniZgFall,Band power,0,MW,3.0,0.0,1
+UniZgFall,Band power,1,MR,9.0,0.0,1
+UniZgFall,Band power,2,MJ,8.0,0.0,1
+UniZgFall,Band power,3,WD,5.0,0.0,1
+UniZgFall,Band power,4,WU,2.0,0.0,1
+UniZgFall,Band power,5,FF,6.0,0.0,1
+UniZgFall,Band power,6,FS,7.0,0.0,1
+UniZgFall,Band power,7,FB,4.0,0.0,1
+UniZgFall,Band power,8,LD,1.0,0.0,1
+UniZgFall,Band power,9,OT,0.0,0.0,1
+UniZgFall,Random order,0,MW,4.0,2.449489742783178,3
+UniZgFall,Random order,1,MR,4.5,4.203173404306164,4
+UniZgFall,Random order,2,MJ,5.25,2.0615528128088303,3
+UniZgFall,Random order,3,WD,2.5,1.7320508075688772,2
+UniZgFall,Random order,4,WU,4.0,2.943920288775949,4
+UniZgFall,Random order,5,FF,6.25,3.095695936834452,4
+UniZgFall,Random order,6,FS,4.5,2.6457513110645907,4
+UniZgFall,Random order,7,FB,6.5,4.358898943540674,3
+UniZgFall,Random order,8,LD,5.25,1.707825127659933,4
+UniZgFall,Random order,9,OT,2.25,2.8722813232690143,3
+UniZgFall,Confusion-based,0,MW,2.5,0.7071067811865476,2
+UniZgFall,Confusion-based,1,MR,2.5,0.7071067811865476,2
+UniZgFall,Confusion-based,2,MJ,6.5,3.5355339059327378,2
+UniZgFall,Confusion-based,3,WD,0.5,0.7071067811865476,2
+UniZgFall,Confusion-based,4,WU,0.5,0.7071067811865476,2
+UniZgFall,Confusion-based,5,FF,6.0,0.0,1
+UniZgFall,Confusion-based,6,FS,6.5,3.5355339059327378,2
+UniZgFall,Confusion-based,7,FB,6.5,2.1213203435596424,2
+UniZgFall,Confusion-based,8,LD,7.0,0.0,1
+UniZgFall,Confusion-based,9,OT,6.5,2.1213203435596424,2
+UniZgFall,Feature-based,0,MW,3.0,0.0,1
+UniZgFall,Feature-based,1,MR,9.0,0.0,1
+UniZgFall,Feature-based,2,MJ,2.0,0.0,1
+UniZgFall,Feature-based,3,WD,0.0,0.0,1
+UniZgFall,Feature-based,4,WU,1.0,0.0,1
+UniZgFall,Feature-based,5,FF,7.0,0.0,1
+UniZgFall,Feature-based,6,FS,8.0,0.0,1
+UniZgFall,Feature-based,7,FB,6.0,0.0,1
+UniZgFall,Feature-based,8,LD,5.0,0.0,1
+UniZgFall,Feature-based,9,OT,4.0,0.0,1
+UniZgFall,Embedding-based,0,MW,2.0,0.0,1
+UniZgFall,Embedding-based,1,MR,4.0,1.4142135623730951,2
+UniZgFall,Embedding-based,2,MJ,9.0,0.0,1
+UniZgFall,Embedding-based,3,WD,1.0,0.0,1
+UniZgFall,Embedding-based,4,WU,0.0,0.0,1
+UniZgFall,Embedding-based,5,FF,6.0,0.0,1
+UniZgFall,Embedding-based,6,FS,4.0,0.0,1
+UniZgFall,Embedding-based,7,FB,4.0,1.4142135623730951,2
+UniZgFall,Embedding-based,8,LD,7.0,0.0,1
+UniZgFall,Embedding-based,9,OT,8.0,0.0,1
+UniZgFall,Optimization-based,0,MW,3.0,0.0,1
+UniZgFall,Optimization-based,1,MR,9.0,0.0,1
+UniZgFall,Optimization-based,2,MJ,2.0,0.0,1
+UniZgFall,Optimization-based,3,WD,0.0,0.0,1
+UniZgFall,Optimization-based,4,WU,1.0,0.0,1
+UniZgFall,Optimization-based,5,FF,7.0,0.0,1
+UniZgFall,Optimization-based,6,FS,8.0,0.0,1
+UniZgFall,Optimization-based,7,FB,6.0,0.0,1
+UniZgFall,Optimization-based,8,LD,5.0,0.0,1
+UniZgFall,Optimization-based,9,OT,4.0,0.0,1
